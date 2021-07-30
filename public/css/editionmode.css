@@ -1,0 +1,252 @@
+:root{
+	--softColor: #fff;
+	--strongColorDarker2: #005c57;
+	--strongColorDarker1: #009088;
+	--strongColor: #00b9b2;
+	--strongColorLighter1: #32c7bc;
+	--strongColorLighter2: #72eae0;
+	
+}
+
+body{
+	border:0;
+	margin:0;
+	padding:0px;
+	background: var(--strongColor);
+	font-family: 'VarelaRound';
+}
+
+.container{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: radial-gradient(circle, rgba(0,0,0,0.58) 72%, rgba(0,0,0,0.68) 100%);
+	backdrop-filter: blur(2px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal {
+	background: var(--strongColor);
+	padding: 10px 40px 5px;
+	border-radius: 20px;
+}
+
+.favtitle{
+	display: flex;
+	align-items: center;
+}
+
+.modal .title, .modal .shortlink input{
+	background: transparent;
+	border: 1px solid var(--strongColorDarker1);
+	border-radius: 5px;
+	font-family: 'VarelaRound';
+	outline: none;
+}
+
+.modal .shortlink{
+	text-align: center;
+}
+
+.modal .title{
+	font-size: 30px;
+	width: 90%;
+	outline: none;
+	margin-left: 10px;
+}
+
+.modal .originurl, .modal .tags {
+	background: var(--strongColorDarker2);
+	color: var(--softColor);
+	border: 0;
+	width: 100%;
+	border-radius: 5px;
+	padding: 5px;
+	font-family: 'VarelaRound';
+}
+
+.modal .modalbuttons {
+	display: flex;
+	justify-content: center;
+}
+
+.modal .modalbuttons button {
+	background: var(--strongColorDarker1);
+	border: 0;
+	border-radius: 5px;
+	padding: 10px;
+	color: var(--softColor);
+	margin: 0 5px;
+	cursor: pointer;
+}
+
+.modal .modalbuttons button:disabled{
+	color: var(--strongColor);
+	cursor: default;
+}
+
+
+
+header {
+	background: var(--softColor);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	padding: 10px 30px 10px 20px;
+	box-shadow: 0 0 13px 0px #00000045;
+	margin-bottom: 13px;
+}
+
+.addlink{
+	font-size: 50px;
+	color: var(--strongColor);
+	cursor: pointer;
+}
+
+.results {
+	color: var(--softColor);
+	font-size: 30px;
+	font-weight: bold;
+}
+
+nav {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+nav .searchbar, .searchnumbers, .searchdate{
+	display: flex;
+	align-items: center;
+	margin: 0 20px;
+	color: var(--softColor);
+}
+
+nav .searchbar input{
+	padding-right: 30px;
+}
+
+nav .searchbar .searchbutton{
+	color: var(--strongColor);
+	margin-left: -23px;
+	margin-right: 8px;
+	cursor: pointer;
+}
+
+nav input, nav select {
+	border-radius: 10px;
+	border: 0;
+	font-family: 'VarelaRound';
+	color: var(--strongColorDarker1);
+	padding: 8px;
+	outline: none;
+}
+
+nav .ordersensebutton{
+	color: var(--strongColorDarker1);
+	font-size: 30px;
+	cursor: pointer;
+	margin: 0 10px;
+}
+
+nav .searchnumbers input{
+	width: 40px;
+}
+
+nav .searchdate input{
+	width: 198px;
+}
+
+#list .link-item{
+	border-top: 1px solid var(--strongColorLighter2);
+	border-bottom: 1px solid var(--strongColorLighter2);
+	color: var(--softColor);
+	padding: 12px 0;
+}
+
+.link-item .clicks, .link-item .more-info{
+	opacity: 0;
+}
+
+.link-item:hover .clicks, .link-item:hover .more-info{
+	opacity: 1;
+}
+
+#list .link-item:hover{
+	background: radial-gradient(circle, var(--strongColorLighter1) 90%, rgba(0,0,0,0) 100%);
+}
+
+.link-item {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	align-content: center;
+	justify-content: space-between;
+}
+
+.link-item .basic-info {
+	display: flex;
+	align-content: flex-start;
+}
+
+.favicon{
+	border-radius: 50%;
+	background: #fff;
+}
+
+.link-item .basic-info .favicon{
+	margin: 12px;
+}
+
+.link-item .basic-info .texts p{
+	margin: 6px 0;
+}
+
+.more-info {
+	display: flex;
+	width: 150px;
+	justify-content: space-around;
+}
+
+.link-item .more-info a, .link-item .more-info i{
+	color: var(--softColor);
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.link-item .more-info .trash:hover{
+	color: #f00;
+}
+
+footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: var(--softColor);
+	margin-top: 20px;
+}
+
+footer input {
+	width: 40px;
+	text-align: center;
+	border-radius: 5px;
+	border: 0;
+	color: var(--strongColorDarker1);
+	outline: none;
+}
+
+@font-face {
+	font-family: 'VarelaRound';
+	font-style: normal;
+	font-weight: 400;
+	font-display: block;
+	src: url("../webfonts/VarelaRound-Regular.ttf") format("truetype");
+}

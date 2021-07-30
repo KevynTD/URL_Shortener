@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Modo de edição</title>
+	<link type="text/css" rel="stylesheet" href="public/css/editionmode.css">
+	<link type="text/css" rel="stylesheet" href="public/css/fa-all.css">
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+
+	<div id="app">
+
+		<header>
+			<img src="public/img/logo.png">
+			<i class="fas fa-plus-circle addlink" @click="newlink"></i>
+		</header>
+
+		<nav>
+
+			<span class="results">{{ results.nresults }} Links</span>
+
+			<div class="searchbar" v-show="searchType=='text'">
+				<input type="search" v-model="search.q" @keyup.enter="updateSearch({newSearch: true})">
+				<i class="fas fa-search searchbutton" @click="updateSearch({newSearch: true})"></i>
+			</div>
+
+			<div class="searchnumbers" v-show="searchType=='number'">
+				mín <input type="number" v-model.number="search.minNum" @change="updateSearch({newSearch: true})">
+				&nbsp;máx <input type="number" v-model.number="search.maxNum" @change="updateSearch({newSearch: true})">
+			</div>
+
+			<div class="searchdate" v-show="searchType=='date'">
+				mín <input type="datetime-local" v-model="search.minDateTxt"
+					v-on:keyup.enter="updateSearch({newSearch: true})">
+				&nbsp;máx <input type="datetime-local" v-model="search.maxDateTxt"
+					v-on:keyup.enter="updateSearch({newSearch: true})">
+			</div>
+
+			<select v-model="search.orderby" @change="updateSearch({newSearch: true});updateData();">
+				<option value="general">Geral</option>
+				<option value="tags">Tags</option>
+				<option value="title">Título</option>
+				<option value="shortlink">Link encurtado</option>
+				<option value="clicks">Clicks</option>
+				<option value="creation">Data de Criação</option>
+				<option value="expireafterdate">Data de expiração</option>
+				<option value="expireafternclicks">Qnt. Clicks p/ expiração</option>
+			</select>
+
+			<i class="fas ordersensebutton"
+				:class="{'fa-sort-up':search.ordersense=='reverse','fa-sort-down':search.ordersense==''}"
+				@click="search.ordersense=='' ? search.ordersense='reverse' : search.ordersense=''; updateSearch({newSearch: true})"></i>
+
+		</nav>
+
+		<div id="edit" class="container" v-show="edit.createOrEdit">
+			<div class="modal">
+				<form>
+					<p class="favtitle" v-show="edit.originalLink!==''"><img class="favicon" :src="edit.favicon" width="32" height="32" v-show="edit.favicon" /> <input class="title" type="text" v-model="edit.title"></p>
+					<p class="shortlink" v-show="edit.originalLink!==''">
+						{{url}}<input type="text" v-model="edit.shortLink" @change="verifyshort()">
+						<span v-show="edit.saveLocked" style="color:red">Este link não pode ser usado</span>
+					</p>
+					<p>Link original: <input class="originurl" type="url" v-model="edit.originalLink" @keyup="linkinfo(edit.originalLink)">
+					</p>
+					<p v-show="edit.originalLink!==''">Tags (separar por vírcula): <input class="tags" type="text" v-model="edit.tags"></p>
+					<p v-show="edit.originalLink!==''">
+						<input type="checkbox" v-model="edit.enableAfterDate"> Expirar depois da data: <input type="datetime-local"
+							v-model="edit.afterDate" :disabled='!edit.enableAfterDate'></p>
+					<p v-show="edit.originalLink!==''"><input type="checkbox" v-model="edit.enableAfterNclicks"> Expirar depois de quantos Clicks: <input type="number"
+							v-model="edit.afterNclicks" :disabled='!edit.enableAfterNclicks'></p>
+					<p class="modalbuttons">
+						<button @click="">Cancelar</button>
+						<button @click="saveLink" :disabled='edit.saveLocked'>Salvar</button>
+					</p>
+				</form>
+			</div>
+		</div>
+
+		<div id="list">
+			<link-item v-for="link in results.links" :key="link.shortLink" :url="url" :title="link.title"
+				:shortlink="link.shortLink" :originallink="link.originalLink" :favicon="link.favicon"
+				:tags="link.tags.toString()" :clicks="link.clicks" :creation="link.creation"
+				:afterdate="link.expire.afterDate" :afternclicks="link.expire.afterNclicks">
+				<i class="fas fa-pen" slot="edit" @click="editlink(link)"></i>
+				<i class="fas fa-trash trash" slot="exclude" @click="excludelink(link)"></i>
+			</link-item>
+		</div>
+
+		<footer>
+			<p>página <input type="number" min="1" :max="maxpage" v-model="search.pagenumber" @change="updateSearch()"> de {{maxpage}} </p>
+			<p><input type="number" min="1" v-model="search.nperpage" @change="updateSearch()"> resultados por página</p>
+		</footer>
+
+	</div>
+
+
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="public/js/editionmode.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+{
+	"name": "url_shortener",
+	"version": "1.0.0",
+	"description": "registration, management and url redirect",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"type": "module",
+	"keywords": [
+		"URL",
+		"Shortener",
+		"redirect"
+	],
+	"author": "Kevyn Tuleu Dourado",
+	"license": "MIT",
+	"dependencies": {
+		"express": "^4.17.1",
+		"link-preview-js": "^2.1.8",
+		"mongodb": "^4.0.1",
+		"socket.io": "^4.1.3"
+	}
+}
